@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>薛彦泽 - 内容主管 · 个人作品集</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-dark: #1e5f6e;
+            --primary-mid: #2d8a7e;
+            --primary-light: #3fb5a0;
+            --accent: #5bc0be;
+            --accent-light: #a8e6e0;
+            --bg-light: #f8faf9;
+            --bg-white: #ffffff;
+            --text-dark: #1a202c;
+            --text-gray: #4a5568;
+            --text-light: #718096;
+            --border: #e2e8f0;
+            --shadow: rgba(30, 95, 110, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans SC', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-mid) 100%);
+            color: white;
+            padding: 80px 0 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, var(--accent) 0%, transparent 70%);
+            opacity: 0.1;
+            border-radius: 50%;
+        }
+
+        .header-content {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 6px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+
+        .header-info {
+            flex: 1;
+        }
+
+        .name {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.02em;
+        }
+
+        .title {
+            font-size: 1.4rem;
+            font-weight: 400;
+            opacity: 0.95;
+            margin-bottom: 20px;
+        }
+
+        .contact-info {
+            display: flex;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin-bottom: 32px;
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .stats {
+            display: flex;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 600;
+        }
+
+        .stat-label {
+            font-size: 0.95rem;
+            opacity: 0.9;
+        }
+
+        /* Navigation */
+        nav {
+            background: var(--bg-white);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 8px var(--shadow);
+            margin-bottom: 60px;
+        }
+
+        .nav-content {
+            display: flex;
+            gap: 8px;
+            padding: 16px 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .nav-content::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            font-weight: 500;
+            cursor: pointer;
+            white-space: nowrap;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .nav-btn:hover {
+            background: var(--bg-light);
+            color: var(--primary-mid);
+        }
+
+        .nav-btn.active {
+            background: var(--primary-mid);
+            color: white;
+        }
+
+        /* Main Content */
+        main {
+            padding-bottom: 100px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.4s ease;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 32px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: var(--primary-mid);
+            border-radius: 2px;
+        }
+
+        /* About Section */
+        .about-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 40px;
+            margin-bottom: 60px;
+        }
+
+        .xiaohongshu-card {
+            text-align: center;
+        }
+
+        .xiaohongshu-qr {
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px var(--shadow);
+            margin-bottom: 16px;
+        }
+
+        .xiaohongshu-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .xiaohongshu-desc {
+            font-size: 0.9rem;
+            color: var(--text-gray);
+        }
+
+        .about-card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 2px 8px var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .about-card h3 {
+            font-size: 1.3rem;
+            color: var(--primary-dark);
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .about-card p {
+            color: var(--text-gray);
+            margin-bottom: 12px;
+            line-height: 1.8;
+        }
+
+        .about-card ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .about-card li {
+            color: var(--text-gray);
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            line-height: 1.8;
+        }
+
+        .about-card li::before {
+            content: '▹';
+            position: absolute;
+            left: 0;
+            color: var(--primary-mid);
+            font-weight: bold;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 16px;
+        }
+
+        .skill-tag {
+            padding: 8px 16px;
+            background: var(--accent-light);
+            color: var(--primary-dark);
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            padding-left: 40px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: var(--accent-light);
+        }
+
+        .timeline-item {
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -45px;
+            top: 4px;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--primary-mid);
+            border: 3px solid var(--bg-light);
+        }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 8px;
+            flex-wrap: wrap;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .timeline-company {
+            color: var(--primary-mid);
+            font-weight: 500;
+        }
+
+        .timeline-period {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .timeline-desc {
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        .timeline-desc ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 12px;
+        }
+
+        .timeline-desc li {
+            padding: 6px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .timeline-desc li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: var(--primary-mid);
+            font-weight: bold;
+        }
+
+        /* Education */
+        .education-item {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .education-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 12px;
+            flex-wrap: wrap;
+        }
+
+        .education-school {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .education-degree {
+            color: var(--primary-mid);
+            font-weight: 500;
+        }
+
+        .education-period {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .education-desc {
+            color: var(--text-gray);
+            line-height: 1.8;
+        }
+
+        /* Cards */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 2px 8px var(--shadow);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(30, 95, 110, 0.15);
+            border-color: var(--primary-light);
+        }
+
+        .card-category {
+            display: inline-block;
+            padding: 4px 12px;
+            background: var(--accent-light);
+            color: var(--primary-dark);
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 12px;
+            margin-bottom: 16px;
+            width: fit-content;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text-dark);
+            margin-bottom: 12px;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--primary-mid);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 8px;
+            transition: color 0.2s ease;
+        }
+
+        .card-link:hover {
+            color: var(--primary-dark);
+        }
+
+        .card-link::after {
+            content: '→';
+            font-size: 1.1em;
+        }
+
+        /* Featured Badge */
+        .featured {
+            position: relative;
+        }
+
+        .featured::before {
+            content: '精选';
+            position: absolute;
+            top: -8px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary-mid) 100%);
+            color: white;
+            padding: 4px 12px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 12px;
+        }
+
+        /* Video Section */
+        .video-showcase {
+            background: var(--bg-white);
+            border-radius: 12px;
+            padding: 32px;
+            box-shadow: 0 2px 8px var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .video-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: var(--text-dark);
+        }
+
+        .video-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 24px;
+            background: var(--primary-mid);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .video-link:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px var(--shadow);
+        }
+
+        /* Stats Highlight */
+        .highlight-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .highlight-card {
+            background: linear-gradient(135deg, var(--accent-light) 0%, var(--bg-white) 100%);
+            padding: 24px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--accent-light);
+        }
+
+        .highlight-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary-dark);
+            margin-bottom: 8px;
+        }
+
+        .highlight-label {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bg-white);
+            padding: 40px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-text {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header {
+                padding: 60px 0 80px;
+            }
+
+            .header-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+                gap: 24px;
+            }
+
+            .profile-image {
+                width: 150px;
+                height: 150px;
+                margin: 0 auto;
+            }
+
+            .name {
+                font-size: 2.5rem;
+            }
+
+            .title {
+                font-size: 1.2rem;
+            }
+
+            .contact-info {
+                justify-content: center;
+            }
+
+            .stats {
+                gap: 24px;
+                justify-content: center;
+            }
+
+            .stat-item {
+                flex-direction: column;
+                gap: 4px;
+            }
+
+            .about-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-content {
+                padding: 12px 0;
+            }
+
+            .timeline {
+                padding-left: 30px;
+            }
+        }
+
+        /* Print Styles */
+        @media print {
+            nav {
+                position: static;
+            }
+
+            .section {
+                display: block !important;
+                page-break-before: always;
+            }
+
+            .section:first-of-type {
+                page-break-before: avoid;
+            }
+
+            .card {
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <div class="header-info">
+                    <h1 class="name">薛彦泽</h1>
+                    <p class="title">内容主管 · 7年科技媒体经验</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                            </svg>
+                            136-9339-5232
+                        </div>
+                        <div class="contact-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                                <polyline points="22,6 12,13 2,6"></polyline>
+                            </svg>
+                            xueyanze_hello@163.com
+                        </div>
+                    </div>
+                    <div class="stats">
+                        <div class="stat-item">
+                            <div class="stat-number">50+</div>
+                            <div class="stat-label">深度专访</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">30+</div>
+                            <div class="stat-label">行业观点</div>
+                        </div>
+                        <div class="stat-item">
+                            <div class="stat-number">10+</div>
+                            <div class="stat-label">10W+文章</div>
+                        </div>
+                    </div>
+                </div>
+                <img src="薛彦泽.png" alt="薛彦泽" class="profile-image">
+            </div>
+        </div>
+    </header>
+
+    <nav>
+        <div class="container">
+            <div class="nav-content">
+                <button class="nav-btn active" data-section="about">关于我</button>
+                <button class="nav-btn" data-section="all">作品展示</button>
+                <button class="nav-btn" data-section="interview">专访稿件</button>
+                <button class="nav-btn" data-section="group">群访稿件</button>
+                <button class="nav-btn" data-section="insights">深度观点</button>
+                <button class="nav-btn" data-section="tech">技术解读</button>
+                <button class="nav-btn" data-section="video">视频栏目</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- About Section -->
+        <div id="about" class="section active">
+            <h2 class="section-title">关于我</h2>
+
+            <div class="about-grid">
+                <div class="about-card">
+                    <h3>个人简介</h3>
+                    <p>7年科技内容一线经验,现任51CTO技术内容主编。专注于AI开发者内容创作与运营,熟悉内容传播、直播策划与社区活动组织。数据敏感度高,擅长结合用户反馈进行内容优化与运营策略调整。</p>
+
+                    <h3 style="margin-top: 32px;">核心成就</h3>
+                    <ul>
+                        <li>公众号头条平均阅读量从2000提升至4W+</li>
+                        <li>从0到1搭建AI开发者直播栏目,邀请80+位企业嘉宾,单场直播UV达8000+</li>
+                        <li>策划多场行业大会专题内容,制定传播策略与讲师邀约</li>
+                        <li>建立AI/大模型技术专家资源库,推动社群互动及用户反馈机制</li>
+                        <li>连续三月降低投放线索成本40%,提升转化率</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <div class="about-card xiaohongshu-card">
+                        <img src="小红书账号.png" alt="小红书账号" class="xiaohongshu-qr">
+                        <h3 class="xiaohongshu-title">关注我的小红书</h3>
+                        <p class="xiaohongshu-desc">扫码获取更多AI技术干货</p>
+                    </div>
+
+                    <div class="about-card" style="margin-bottom: 24px;">
+                        <h3>专业技能</h3>
+                        <div class="skills-grid">
+                            <span class="skill-tag">内容统筹</span>
+                            <span class="skill-tag">策划撰写</span>
+                            <span class="skill-tag">直播策划</span>
+                            <span class="skill-tag">社区运营</span>
+                            <span class="skill-tag">数据分析</span>
+                            <span class="skill-tag">团队管理</span>
+                            <span class="skill-tag">AI领域</span>
+                            <span class="skill-tag">开发者内容</span>
+                        </div>
+                    </div>
+
+                    <div class="about-card">
+                        <h3>教育背景</h3>
+                        <div class="education-item" style="box-shadow: none; border: none; padding: 16px 0; margin-bottom: 12px;">
+                            <div class="education-header">
+                                <div class="education-school">北京科技大学</div>
+                                <div class="education-period">2015-2018</div>
+                            </div>
+                            <div class="education-degree">硕士 · 计算机技术</div>
+                            <p class="education-desc" style="margin-top: 8px; font-size: 0.9rem;">参与国家自然科学基金项目,发表SCI/EI论文</p>
+                        </div>
+                        <div class="education-item" style="box-shadow: none; border: none; padding: 16px 0; margin-bottom: 0;">
+                            <div class="education-header">
+                                <div class="education-school">北京科技大学</div>
+                                <div class="education-period">2008-2012</div>
+                            </div>
+                            <div class="education-degree">本科 · 自动化</div>
+                            <p class="education-desc" style="margin-top: 8px; font-size: 0.9rem;">四次人民奖学金,优秀毕业生</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="about-card">
+                <h3>工作经历</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div>
+                                <span class="timeline-title">技术内容主编</span>
+                                <span class="timeline-company"> · 51CTO</span>
+                            </div>
+                            <span class="timeline-period">2021.11 - 至今</span>
+                        </div>
+                        <div class="timeline-desc">
+                            <ul>
+                                <li>负责技术内容创作与编辑统筹,提升内容专业性与传播力</li>
+                                <li>主导AI开发者直播栏目从0到1的搭建,邀请80+位AI方向企业嘉宾,单场直播UV达8000+</li>
+                                <li>策划行业大会专题内容、讲师邀约与传播路径制定</li>
+                                <li>维护AI/大模型技术专家资源库,推动社群互动及用户反馈机制建设</li>
+                                <li>管理编辑团队,负责内容选题、运营节奏、数据分析及反馈机制搭建</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div>
+                                <span class="timeline-title">内容运营</span>
+                                <span class="timeline-company"> · 拉勾教育</span>
+                            </div>
+                            <span class="timeline-period">2021.04 - 2021.10</span>
+                        </div>
+                        <div class="timeline-desc">
+                            <ul>
+                                <li>负责微信、知乎等内容投放与转化文案撰写</li>
+                                <li>连续三月降低投放线索成本40%,提升转化率</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div>
+                                <span class="timeline-title">投放主管</span>
+                                <span class="timeline-company"> · 开课吧</span>
+                            </div>
+                            <span class="timeline-period">2019.08 - 2021.04</span>
+                        </div>
+                        <div class="timeline-desc">
+                            <ul>
+                                <li>负责大课学科的KOL投放工作,对投放指标和ROI负责</li>
+                                <li>规模扩大5倍,成本下降25%</li>
+                                <li>与教研深度合作推动课程落地,建立课程迭代与转化策略,社群转化率提升3-4个百分点</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div>
+                                <span class="timeline-title">社区运营</span>
+                                <span class="timeline-company"> · 腾讯科技(北京)</span>
+                            </div>
+                            <span class="timeline-period">2018.01 - 2018.07</span>
+                        </div>
+                        <div class="timeline-desc">
+                            <ul>
+                                <li>负责腾讯云社区问答与专栏内容运营,策划热点内容、用户互动活动</li>
+                                <li>搭建高活跃用户群,通过激励机制提升用户互动频率,社区UV增长10倍</li>
+                                <li>联动技术作家群体,提升优质内容产出与用户粘性</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item">
+                        <div class="timeline-header">
+                            <div>
+                                <span class="timeline-title">IT技术支持</span>
+                                <span class="timeline-company"> · 北京麦禾信通</span>
+                            </div>
+                            <span class="timeline-period">2013.04 - 2014.11</span>
+                        </div>
+                        <div class="timeline-desc">
+                            <ul>
+                                <li>支持物联网项目原型系统设计、技术交流、产品文档编写</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Portfolio Sections -->
+        <div id="all" class="section">
+            <h2 class="section-title">作品展示</h2>
+
+            <div class="highlight-section">
+                <div class="highlight-card">
+                    <div class="highlight-number">50+</div>
+                    <div class="highlight-label">专访稿件</div>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-number">30+</div>
+                    <div class="highlight-label">深度分析</div>
+                </div>
+                <div class="highlight-card">
+                    <div class="highlight-number">10W+</div>
+                    <div class="highlight-label">爆款文章</div>
+                </div>
+            </div>
+
+            <div class="card-grid">
+                <div class="card featured">
+                    <span class="card-category">专访稿件</span>
+                    <h3 class="card-title">对话华为云马会彬:AI原生应用变革,本质上是一场「从1到0」的创新</h3>
+                    <a href="https://mp.weixin.qq.com/s/QaWO1uGjUy8n28-U71ALWQ" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card featured">
+                    <span class="card-category">专访稿件</span>
+                    <h3 class="card-title">三年内拿下10%的赛道份额,用AI撬动技术人才招聘的百亿缺口,万码优才做对了什么</h3>
+                    <a href="https://mp.weixin.qq.com/s/4bb6Ujf367hNsiXWlTpdLQ" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card featured">
+                    <span class="card-category">10W+文章</span>
+                    <h3 class="card-title">Gemini3预训练负责人:训练数据一开始就用了大量合成数据,范式已经变化</h3>
+                    <a href="https://mp.weixin.qq.com/s/3dpZPC1r2U1dp-YuiP8lng" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">专访稿件</span>
+                    <h3 class="card-title">专访明略科技CTO郝杰:大模型也会被颠覆,要找到产品的临界点!</h3>
+                    <a href="https://mp.weixin.qq.com/s/Pb72Vy6RWtuiOc_PpREYOw" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">群访稿件</span>
+                    <h3 class="card-title">亚马逊云科技全球首席企业战略总经理谈AI转型:85%的IT预算都可能花错了地方</h3>
+                    <a href="https://mp.weixin.qq.com/s/jHb05G7Vsp26tTiDVTd75w" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">深度观点</span>
+                    <h3 class="card-title">从谷歌Pixel 10,我终于看见连苹果都没做到的AI手机的影子:应用的存在感削弱了</h3>
+                    <a href="https://mp.weixin.qq.com/s/0KvUj5N7qrA-Hthzp4ce_g" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">技术解读</span>
+                    <h3 class="card-title">苹果大模型智商归零论文刷屏,是革命,还是自曝式搬起石头打自己的脚?</h3>
+                    <a href="https://mp.weixin.qq.com/s/bVvQP0OP9ThWMEvGH5apgw" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">实测文章</span>
+                    <h3 class="card-title">国产最强!免费平替ClaudeCode!Qwen3-Coder玩疯了!自主特性惊艳!</h3>
+                    <a href="https://mp.weixin.qq.com/s/gqanYIZlF9HDzrKiKGP1ag" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">热点资讯</span>
+                    <h3 class="card-title">持续怒斩53K星!狠人揭秘Clawdbot反行业记忆系统!跟ChatGPT大不同</h3>
+                    <a href="https://mp.weixin.qq.com/s/NxlhCy0lM51nZpUbjA06eA" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">播客整理</span>
+                    <h3 class="card-title">不再迷信大一统模型!OpenAI平台工程负责人自曝:单模AGI路线已破灭!</h3>
+                    <a href="https://mp.weixin.qq.com/s/fWrFOivN78shcxyi1nnhlw" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">大会发布</span>
+                    <h3 class="card-title">骄傲藏不住!谷歌CEO劈柴哥5.20深夜开大:15项重磅炸弹,两大Gemini前沿方向!</h3>
+                    <a href="https://mp.weixin.qq.com/s/-7TLghIIdTNaJ7zPLvHEGw" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">新品发布</span>
+                    <h3 class="card-title">中国开源大模型新成员:小米推理大模型首秀!</h3>
+                    <a href="https://mp.weixin.qq.com/s/8H3ffMwFt-xz8ZhLV9hgJw" target="_blank" class="card-link">阅读全文</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="interview" class="section">
+            <h2 class="section-title">专访稿件</h2>
+            <div class="card-grid">
+                <div class="card featured">
+                    <span class="card-category">华为云</span>
+                    <h3 class="card-title">对话华为云马会彬:AI原生应用变革,本质上是一场「从1到0」的创新</h3>
+                    <a href="https://mp.weixin.qq.com/s/QaWO1uGjUy8n28-U71ALWQ" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card featured">
+                    <span class="card-category">AI招聘</span>
+                    <h3 class="card-title">三年内拿下10%的赛道份额,用AI撬动技术人才招聘的百亿缺口,万码优才做对了什么</h3>
+                    <a href="https://mp.weixin.qq.com/s/4bb6Ujf367hNsiXWlTpdLQ" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">明略科技</span>
+                    <h3 class="card-title">专访明略科技CTO郝杰:大模型也会被颠覆,要找到产品的临界点!</h3>
+                    <a href="https://mp.weixin.qq.com/s/Pb72Vy6RWtuiOc_PpREYOw" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">Gonex</span>
+                    <h3 class="card-title">专访Gonex CEO温梦飞:应用领域,意图识别比模型本身更重要!</h3>
+                    <a href="https://mp.weixin.qq.com/s/1QLks8ssKR7LBvm5j6JkWA" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">火山引擎</span>
+                    <h3 class="card-title">对话火山引擎谭待:坚持云优先,做好大模型时代的摆渡人</h3>
+                    <a href="https://mp.weixin.qq.com/s/nC9ApGbBLpQ_0QTl9B0pUQ" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">百度</span>
+                    <h3 class="card-title">大模型时代,"人人可AI"的百度开发者平台长什么样?</h3>
+                    <a href="https://mp.weixin.qq.com/s/Lhvd3E7afhiNJ1kPiXRetA" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">百度智能云</span>
+                    <h3 class="card-title">解构百度智能云千帆AppBuilder,预见下一代大模型应用</h3>
+                    <a href="https://mp.weixin.qq.com/s/G5U_LklLjUW1ewkqkwhftQ" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">Thoughtworks</span>
+                    <h3 class="card-title">Thoughtworks肖然:大模型走向大众,需要新的应用开发逻辑</h3>
+                    <a href="https://mp.weixin.qq.com/s/KZSZKTZX_baV0b8zCN5fEA" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">无界AI</span>
+                    <h3 class="card-title">无界AI算法总监邹国平:Midjourney领跑,没有标准答案的文生图,下半场还能怎么卷?</h3>
+                    <a href="https://mp.weixin.qq.com/s/F8ivzZ0xMOU_3RvoZzVu2A" target="_blank" class="card-link">阅读全文</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="group" class="section">
+            <h2 class="section-title">群访稿件</h2>
+            <div class="card-grid">
+                <div class="card featured">
+                    <span class="card-category">亚马逊</span>
+                    <h3 class="card-title">亚马逊云科技全球首席企业战略总经理谈AI转型:85%的IT预算都可能花错了地方;最大挑战并非技术,而是文化</h3>
+                    <a href="https://mp.weixin.qq.com/s/jHb05G7Vsp26tTiDVTd75w" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">火山引擎</span>
+                    <h3 class="card-title">小时级部署交付,分钟级AI应用构建,这款火山引擎AI一体机如何做到的?</h3>
+                    <a href="https://mp.weixin.qq.com/s/ecd36dgNbCK_IoAkoRctAg" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">百度</span>
+                    <h3 class="card-title">太争气了!百度的底气,李彦宏的决心:3万卡国产自研集群;一口气九个重磅发布</h3>
+                    <a href="https://mp.weixin.qq.com/s/fEEQ0PwoFIgWIQki00H-Cg" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">OpenAI</span>
+                    <h3 class="card-title">OpenAI新领导上任第一把火:DeepResearch一个小改动被网友狂赞!</h3>
+                    <a href="https://mp.weixin.qq.com/s/jSlMwiWJRnUdFRqJnARJEw" target="_blank" class="card-link">阅读全文</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="insights" class="section">
+            <h2 class="section-title">深度观点</h2>
+            <div class="card-grid">
+                <div class="card featured">
+                    <span class="card-category">AI Phone</span>
+                    <h3 class="card-title">从谷歌Pixel 10,我终于看见连苹果都没做到的AI手机的影子:应用的存在感削弱了</h3>
+                    <a href="https://mp.weixin.qq.com/s/0KvUj5N7qrA-Hthzp4ce_g" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">行业趋势</span>
+                    <h3 class="card-title">Agent不会在2025爆发</h3>
+                    <a href="https://mp.weixin.qq.com/s/f3ZsVKxZPd2MzQLuawXQOg" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">年度回顾</span>
+                    <h3 class="card-title">2021,再见,大模型?</h3>
+                    <a href="https://mp.weixin.qq.com/s/qokfOfkjJNjQeJNKe5QoTQ" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">趋势分析</span>
+                    <h3 class="card-title">请回答2024:生成式AI会爆发"超级应用"吗?</h3>
+                    <a href="https://mp.weixin.qq.com/s/D9bMh-lIDVxdxIcENYprIQ" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">产品分析</span>
+                    <h3 class="card-title">90%的AI产品发布,为什么惨败如垃圾!</h3>
+                    <a href="https://mp.weixin.qq.com/s/2n2xHb3VwwJl2TDwfWleoA" target="_blank" class="card-link">阅读全文</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="tech" class="section">
+            <h2 class="section-title">技术解读</h2>
+            <div class="card-grid">
+                <div class="card featured">
+                    <span class="card-category">苹果研究</span>
+                    <h3 class="card-title">苹果大模型智商归零论文刷屏,是革命,还是自曝式搬起石头打自己的脚?</h3>
+                    <a href="https://mp.weixin.qq.com/s/bVvQP0OP9ThWMEvGH5apgw" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">架构观点</span>
+                    <h3 class="card-title">大多数MCP都设计错了!</h3>
+                    <a href="https://mp.weixin.qq.com/s/rdl3rH75cOPkrv9d9piMRg" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">Apple AI</span>
+                    <h3 class="card-title">Apple不装了:AI iPhone将至!</h3>
+                    <a href="https://mp.weixin.qq.com/s/8Nzgqhtm9jsOs3gMeFrkcg" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">技术争议</span>
+                    <h3 class="card-title">惊到了!大神炮轰CUDA:CUDA存致命缺陷,它不是未来!</h3>
+                    <a href="https://mp.weixin.qq.com/s/EDCOp_1EDHmOBQE3_hsGYQ" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">MCP批评</span>
+                    <h3 class="card-title">痛斥!现在的MCP,就像尿裤子!创业CTO试用后怒气值飙升</h3>
+                    <a href="https://mp.weixin.qq.com/s/zttnZMxQ9DguTBjkAK76KA" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">实测</span>
+                    <h3 class="card-title">国产最强!免费平替ClaudeCode!Qwen3-Coder玩疯了!</h3>
+                    <a href="https://mp.weixin.qq.com/s/gqanYIZlF9HDzrKiKGP1ag" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">Kimi实测</span>
+                    <h3 class="card-title">官网飙涨36亿!K2究竟能做哪些,有哪些坑?实战总结来了</h3>
+                    <a href="https://mp.weixin.qq.com/s/lPE2_OiMh0NjRchB7yyB2A" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">o3体验</span>
+                    <h3 class="card-title">o3 pro一手真体验!上下文喂到断供!上帝渴望上下文</h3>
+                    <a href="https://mp.weixin.qq.com/s/rVElL_HZOVMw9rQumTHVZg" target="_blank" class="card-link">阅读全文</a>
+                </div>
+
+                <div class="card">
+                    <span class="card-category">Agent框架</span>
+                    <h3 class="card-title">生产级!京东团队打造的多Agent系统框架终于正式开源了!</h3>
+                    <a href="https://mp.weixin.qq.com/s/6iLS4FzQ6lx4ketwNeFwPQ" target="_blank" class="card-link">阅读全文</a>
+                </div>
+            </div>
+        </div>
+
+        <div id="video" class="section">
+            <h2 class="section-title">视频栏目</h2>
+            <div class="video-showcase">
+                <h3 class="video-title">《AI实战派》、《T前线》</h3>
+                <p style="color: var(--text-gray); margin-bottom: 24px;">
+                    专注于AI技术实战与前沿资讯的深度视频栏目,解读最新技术趋势,采访行业专家,为开发者提供实用的AI技术指导。
+                </p>
+                <a href="https://www.51cto.com/aigc/activity.html" target="_blank" class="video-link">
+                    观看视频栏目 →
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="footer-text">© 2025 薛彦泽 · 专业科技媒体内容创作</p>
+        </div>
+    </footer>
+
+    <script>
+        // Navigation functionality
+        const navButtons = document.querySelectorAll('.nav-btn');
+        const sections = document.querySelectorAll('.section');
+
+        navButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                const targetSection = button.getAttribute('data-section');
+
+                // Update button states
+                navButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // Show/hide sections
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === targetSection) {
+                        section.classList.add('active');
+                    }
+                });
+
+                // Smooth scroll to top of content
+                window.scrollTo({
+                    top: document.querySelector('nav').offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Add subtle animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(20px)';
+            card.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(card);
+        });
+
+        // Trigger initial animation
+        setTimeout(() => {
+            document.querySelectorAll('.card').forEach((card, index) => {
+                setTimeout(() => {
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, index * 50);
+            });
+        }, 100);
+    </script>
+</body>
+</html>
